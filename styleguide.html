@@ -1,0 +1,2367 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Abwaab — Design System Styleguide</title>
+        <style>
+            /* ---- Dubai font (loaded from the repo's public/fonts) ---- */
+            @font-face {
+                font-family: "Dubai";
+                src: url("../public/fonts/DubaiW23-Light.woff2") format("woff2");
+                font-weight: 300;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Dubai";
+                src: url("../public/fonts/DubaiW23-Regular.woff2")
+                    format("woff2");
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Dubai";
+                src: url("../public/fonts/DubaiW23-Medium.woff2")
+                    format("woff2");
+                font-weight: 500;
+                font-style: normal;
+                font-display: swap;
+            }
+            @font-face {
+                font-family: "Dubai";
+                src: url("../public/fonts/DubaiW23-Bold.woff2") format("woff2");
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+
+            :root {
+                /* brand (Abwaab) */
+                --blue: #0655cb;
+                --blue-hover: #0044ae;
+                --navy: #002f77;
+                --yellow: #ffca00;
+                --gold: #d9a901;
+                /* functional (UI signals, not brand) */
+                --green: #22c55e;
+                --green-light: #86efac;
+                --red: #ef4444;
+                --orange: #f59e0b;
+                --gray: #9ca3af;
+                /* surfaces / text / border */
+                --page: #f5f5f5;
+                --card: #ffffff;
+                --sunken: #f9fafb;
+                --sunken-strong: #f3f4f6;
+                --text: #1f2937;
+                --text-2: #6b7280;
+                --text-dis: #9ca3af;
+                --border: #e5e7eb;
+                /* radius */
+                --r-cb: 4px;
+                --r-sm: 8px;
+                --r-md: 10px;
+                --r-lg: 12px;
+                --r-xl: 16px;
+                --r-2xl: 20px;
+                --r-full: 9999px;
+                /* elevation */
+                --sh-rest: 0 1px 2px rgba(0, 0, 0, 0.05);
+                --sh-hover: 0 2px 6px rgba(0, 0, 0, 0.1);
+                --sh-overlay: 0 8px 16px rgba(0, 0, 0, 0.15);
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: "Dubai", system-ui, "Segoe UI", sans-serif;
+                background: var(--page);
+                color: var(--text);
+                line-height: 1.5;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* layout */
+            .wrap {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 24px 96px;
+            }
+            header.top {
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                background: #fff;
+                border-bottom: 1px solid var(--border);
+            }
+            header.top .bar {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 14px 24px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+            .brandmark {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 700;
+                font-size: 18px;
+            }
+            .brandmark .dot {
+                width: 26px;
+                height: 26px;
+                border-radius: var(--r-md);
+                background: linear-gradient(
+                    135deg,
+                    var(--blue),
+                    var(--blue-hover)
+                );
+            }
+            nav.toc {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+                margin-right: auto;
+            }
+            nav.toc a {
+                font-size: 12px;
+                color: var(--text-2);
+                text-decoration: none;
+                padding: 4px 10px;
+                border-radius: var(--r-full);
+                border: 1px solid var(--border);
+            }
+            nav.toc a:hover {
+                color: var(--blue);
+                border-color: var(--blue);
+            }
+
+            .hero {
+                padding: 40px 0 8px;
+            }
+            .hero h1 {
+                font-size: 30px;
+                font-weight: 700;
+                margin: 0 0 6px;
+            }
+            .hero p {
+                font-size: 15px;
+                color: var(--text-2);
+                margin: 0;
+                max-width: 680px;
+            }
+            .pill-row {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-top: 16px;
+            }
+            .kpill {
+                font-size: 12px;
+                font-weight: 700;
+                padding: 5px 12px;
+                border-radius: var(--r-full);
+                background: #fff;
+                border: 1px solid var(--border);
+            }
+            .kpill b {
+                color: var(--blue);
+            }
+
+            section {
+                margin-top: 40px;
+            }
+            section > h2 {
+                font-size: 20px;
+                font-weight: 700;
+                margin: 0 0 4px;
+                padding-top: 8px;
+            }
+            section > .sub {
+                font-size: 13px;
+                color: var(--text-2);
+                margin: 0 0 18px;
+            }
+            .tier {
+                display: inline-block;
+                font-size: 10px;
+                font-weight: 700;
+                padding: 2px 8px;
+                border-radius: var(--r-full);
+                margin-inline-start: 8px;
+                vertical-align: middle;
+            }
+            .tier.u {
+                background: rgba(6, 85, 203, 0.1);
+                color: var(--blue);
+            }
+            .tier.s {
+                background: rgba(34, 197, 94, 0.12);
+                color: #15803d;
+            }
+
+            .panel {
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: var(--r-xl);
+                padding: 20px;
+                box-shadow: var(--sh-rest);
+            }
+            .grid {
+                display: grid;
+                gap: 16px;
+            }
+            .g2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .g3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .g4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .g5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            @media (max-width: 760px) {
+                .g3,
+                .g4,
+                .g5 {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .g2 {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .label {
+                font-size: 12px;
+                color: var(--text-2);
+            }
+            .mono {
+                font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+                font-size: 11px;
+                color: var(--text-2);
+                direction: ltr;
+                display: inline-block;
+            }
+
+            /* color swatches */
+            .swatch {
+                border: 1px solid var(--border);
+                border-radius: var(--r-lg);
+                overflow: hidden;
+                background: #fff;
+            }
+            .swatch .chip {
+                height: 72px;
+            }
+            .swatch .meta {
+                padding: 10px 12px;
+            }
+            .swatch .name {
+                font-size: 13px;
+                font-weight: 700;
+            }
+            .swatch .role {
+                font-size: 11px;
+                color: var(--text-2);
+                margin-top: 2px;
+            }
+
+            /* type scale */
+            .typerow {
+                display: flex;
+                align-items: baseline;
+                gap: 16px;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--border);
+            }
+            .typerow:last-child {
+                border-bottom: 0;
+            }
+            .typerow .tag {
+                font-size: 11px;
+                color: var(--text-2);
+                min-width: 150px;
+                direction: ltr;
+                text-align: start;
+            }
+
+            /* spacing */
+            .spacebar {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 6px 0;
+            }
+            .spacebar .box {
+                height: 16px;
+                background: var(--blue);
+                border-radius: 3px;
+            }
+            .spacebar .t {
+                font-size: 12px;
+                color: var(--text-2);
+            }
+
+            /* radius */
+            .radbox {
+                height: 64px;
+                background: rgba(6, 85, 203, 0.12);
+                border: 1.5px solid var(--blue);
+            }
+            .radcap {
+                font-size: 12px;
+                color: var(--text-2);
+                margin-top: 8px;
+                text-align: center;
+            }
+
+            /* elevation */
+            .elev {
+                height: 72px;
+                background: #fff;
+                border-radius: var(--r-xl);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                color: var(--text-2);
+            }
+
+            /* buttons */
+            .btn {
+                font-family: inherit;
+                cursor: pointer;
+                border: 1px solid transparent;
+                border-radius: var(--r-md);
+                font-weight: 500;
+                font-size: 14px;
+                height: 36px;
+                padding: 0 16px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                transition: all 0.15s;
+            }
+            .btn-primary {
+                background: var(--blue);
+                color: #fff;
+            }
+            .btn-primary:hover {
+                background: var(--blue-hover);
+            }
+            .btn-success {
+                background: var(--green);
+                color: #fff;
+            }
+            .btn-success:hover {
+                filter: brightness(0.95);
+            }
+            .btn-destructive {
+                background: var(--red);
+                color: #fff;
+            }
+            .btn-outline {
+                background: #fff;
+                border-color: var(--border);
+                color: var(--text);
+            }
+            .btn-secondary {
+                background: var(--page);
+                color: var(--blue);
+            }
+            .btn-ghost {
+                background: transparent;
+                color: var(--text);
+            }
+            .btn-link {
+                background: transparent;
+                color: var(--blue);
+                text-decoration: underline;
+                text-underline-offset: 4px;
+                padding: 0;
+                height: auto;
+            }
+            .btn-cta {
+                height: 48px;
+                width: 100%;
+                font-weight: 700;
+            }
+            .btn-xs {
+                height: 24px;
+                font-size: 12px;
+                padding: 0 8px;
+            }
+            .btn-sm {
+                height: 32px;
+                padding: 0 12px;
+            }
+            .btn-lg {
+                height: 40px;
+                padding: 0 24px;
+            }
+            .flexwrap {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            /* inputs */
+            .field {
+                display: block;
+            }
+            .field .lab {
+                font-size: 12px;
+                color: var(--text-2);
+                margin-bottom: 4px;
+            }
+            .inp {
+                font-family: inherit;
+                width: 100%;
+                height: 36px;
+                border: 1px solid var(--border);
+                border-radius: var(--r-md);
+                padding: 0 12px;
+                font-size: 16px;
+                background: #fff;
+                color: var(--text);
+                outline: none;
+                transition: 0.15s;
+            }
+            .inp:focus {
+                border-color: var(--blue);
+                box-shadow: 0 0 0 3px rgba(6, 85, 203, 0.5);
+            }
+            .inp.err {
+                border-color: var(--red);
+            }
+            .errline {
+                font-size: 12px;
+                color: var(--red);
+                margin-top: 4px;
+            }
+            .otp {
+                text-align: center;
+                font-size: 24px;
+                font-weight: 700;
+                letter-spacing: 0.5em;
+                direction: ltr;
+            }
+            .checkrow {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 14px;
+            }
+            .cbx {
+                width: 16px;
+                height: 16px;
+                border-radius: var(--r-cb);
+                border: 1px solid var(--border);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .cbx.on {
+                background: var(--blue);
+                border-color: var(--blue);
+                color: #fff;
+                font-size: 11px;
+            }
+
+            /* badges & chips */
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                font-size: 12px;
+                font-weight: 500;
+                border-radius: var(--r-full);
+                padding: 2px 8px;
+                border: 1px solid transparent;
+            }
+            .b-blue {
+                background: rgba(6, 85, 203, 0.1);
+                color: var(--blue);
+            }
+            .b-green {
+                background: var(--green);
+                color: #fff;
+            }
+            .b-red {
+                background: var(--red);
+                color: #fff;
+            }
+            .b-orange {
+                background: rgba(245, 158, 11, 0.12);
+                color: #b45309;
+            }
+            .b-gray {
+                background: var(--sunken-strong);
+                color: var(--text-2);
+            }
+            .b-blue-solid {
+                background: var(--blue);
+                color: #fff;
+            }
+            .chip {
+                font-size: 12px;
+                font-weight: 700;
+                border-radius: var(--r-full);
+                padding: 6px 12px;
+                cursor: pointer;
+                background: #fff;
+            }
+            .chip.blue {
+                color: var(--blue);
+                border: 1px solid rgba(6, 85, 203, 0.2);
+            }
+            .chip.blue.active {
+                background: var(--blue);
+                color: #fff;
+                border-color: var(--blue);
+            }
+            .chip.green {
+                color: var(--green);
+                border: 1px solid rgba(34, 197, 94, 0.3);
+            }
+            .chip.green.active {
+                background: var(--green);
+                color: #fff;
+                border-color: var(--green);
+            }
+
+            /* progress / statbar */
+            .track {
+                height: 8px;
+                background: var(--sunken-strong);
+                border-radius: var(--r-full);
+                overflow: hidden;
+            }
+            .track .fill {
+                height: 100%;
+                border-radius: var(--r-full);
+            }
+            .statbar .head {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 6px;
+            }
+            .statbar .head .l {
+                font-size: 12px;
+                color: var(--text-2);
+            }
+            .statbar .head .v {
+                font-size: 14px;
+                font-weight: 700;
+            }
+
+            /* course card */
+            .cover {
+                border-radius: var(--r-xl);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex: none;
+            }
+            .ccard {
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: var(--r-xl);
+                box-shadow: var(--sh-rest);
+                padding: 16px;
+                display: flex;
+                gap: 12px;
+            }
+            .ccard:hover {
+                box-shadow: var(--sh-hover);
+            }
+
+            /* perf tag */
+            .perftag {
+                border-radius: var(--r-xl);
+                padding: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            /* chat bubbles */
+            .chatwrap {
+                background: var(--page);
+                border: 1px solid var(--border);
+                border-radius: var(--r-lg);
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .bub {
+                max-width: 80%;
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+            .bub.self {
+                align-self: flex-start;
+                background: var(--blue);
+                color: #fff;
+                border-radius: 20px 20px 20px 6px;
+            }
+            .bub.other {
+                align-self: flex-end;
+                background: #fff;
+                color: var(--text);
+                box-shadow: var(--sh-rest);
+                border-radius: 20px 20px 6px 20px;
+            }
+            .bub .who {
+                font-size: 10px;
+                font-weight: 700;
+                color: var(--blue);
+                margin-bottom: 2px;
+            }
+            .bub .ts {
+                font-size: 10px;
+                margin-top: 4px;
+                opacity: 0.6;
+            }
+
+            /* device mock for chrome */
+            .device {
+                width: 340px;
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 24px;
+                overflow: hidden;
+                box-shadow: var(--sh-hover);
+            }
+            .topbar {
+                height: 56px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 16px;
+                border-bottom: 1px solid var(--border);
+                background: #fff;
+            }
+            .topbar .ttl {
+                font-size: 16px;
+                font-weight: 700;
+            }
+            .bottomnav {
+                height: 64px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                border-top: 1px solid var(--border);
+                background: #fff;
+            }
+            .navitem {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                font-size: 10px;
+                color: var(--text-dis);
+            }
+            .navitem.active {
+                color: var(--blue);
+                font-weight: 700;
+            }
+            .iconbadge {
+                position: relative;
+            }
+            .iconbadge .cnt {
+                position: absolute;
+                top: -6px;
+                left: -6px;
+                background: var(--red);
+                color: #fff;
+                font-size: 10px;
+                font-weight: 700;
+                width: 16px;
+                height: 16px;
+                border-radius: var(--r-full);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .cartbadge {
+                background: var(--blue);
+            }
+            svg.ic {
+                width: 22px;
+                height: 22px;
+                display: block;
+            }
+
+            /* empty state */
+            .empty {
+                text-align: center;
+                padding: 24px;
+            }
+            .empty .em {
+                font-size: 40px;
+                display: block;
+                margin-bottom: 8px;
+            }
+            .empty .ln {
+                font-size: 14px;
+                color: var(--text-2);
+            }
+
+            /* tint ladder */
+            .tint {
+                height: 56px;
+                border-radius: var(--r-lg);
+                display: flex;
+                align-items: flex-end;
+                padding: 8px;
+                font-size: 11px;
+                color: var(--blue);
+                font-weight: 700;
+            }
+
+            /* token table */
+            table.tok {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13px;
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: var(--r-lg);
+                overflow: hidden;
+            }
+            table.tok th,
+            table.tok td {
+                text-align: start;
+                padding: 9px 12px;
+                border-bottom: 1px solid var(--border);
+            }
+            table.tok th {
+                background: var(--sunken);
+                font-size: 12px;
+                color: var(--text-2);
+                font-weight: 700;
+            }
+            table.tok tr:last-child td {
+                border-bottom: 0;
+            }
+            .note {
+                background: rgba(245, 158, 11, 0.08);
+                border: 1px solid rgba(245, 158, 11, 0.3);
+                border-radius: var(--r-lg);
+                padding: 12px 14px;
+                font-size: 13px;
+                color: #92400e;
+            }
+            footer {
+                margin-top: 48px;
+                padding-top: 20px;
+                border-top: 1px solid var(--border);
+                font-size: 12px;
+                color: var(--text-2);
+            }
+        </style>
+    </head>
+    <body>
+        <header class="top">
+            <div class="bar">
+                <span class="brandmark"
+                    ><span class="dot"></span> أبواب بلس — Design System</span
+                >
+                <nav class="toc">
+                    <a href="#color">الألوان</a>
+                    <a href="#type">الخطوط</a>
+                    <a href="#space">المسافات</a>
+                    <a href="#radius">الحواف</a>
+                    <a href="#elev">الظلال</a>
+                    <a href="#buttons">الأزرار</a>
+                    <a href="#forms">الحقول</a>
+                    <a href="#badges">الشارات</a>
+                    <a href="#charts">الإحصاءات</a>
+                    <a href="#cards">البطاقات</a>
+                    <a href="#chat">المحادثة</a>
+                    <a href="#chrome">الإطار</a>
+                    <a href="#states">الحالات</a>
+                    <a href="#tokens">الرموز</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="wrap">
+            <div class="hero">
+                <h1>Abwaab Styleguide</h1>
+                <p>
+                    عرض مرئي حيّ لنظام التصميم — مطمئن · على المسار · لست وحدك.
+                    This is a rendered companion to the markdown docs in
+                    <span class="mono">/docs</span>. All values are the
+                    canonical tokens; see
+                    <span class="mono">design-tokens.json</span>.
+                </p>
+                <div class="pill-row">
+                    <span class="kpill">Brand blue <b>#0655CB</b></span>
+                    <span class="kpill">Secondary <b>#FFCA00</b></span>
+                    <span class="kpill">Font <b>Dubai</b></span>
+                    <span class="kpill">Radius base <b>12px</b></span>
+                    <span class="kpill">Unit <b>4px</b></span>
+                    <span class="kpill">Container <b>512px</b></span>
+                    <span class="kpill">Touch <b>44px</b></span>
+                    <span class="kpill">RTL <b>Arabic</b></span>
+                </div>
+            </div>
+
+            <!-- COLOR -->
+            <section id="color">
+                <h2>Color <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    Two-color brand — blue (primary) + yellow (secondary),
+                    reconciled to the Abwaab guidelines. Everything else is a
+                    functional UI signal — never decorative.
+                </p>
+
+                <h3 class="label" style="margin: 0 0 8px">Brand</h3>
+                <div class="grid g4">
+                    <div class="swatch">
+                        <div class="chip" style="background: #0655cb"></div>
+                        <div class="meta">
+                            <div class="name">brand / blue</div>
+                            <div class="role">
+                                #0655CB · primary, active, links, focus
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #0044ae"></div>
+                        <div class="meta">
+                            <div class="name">brand / blue-hover</div>
+                            <div class="role">#0044AE · hover/pressed</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div
+                            class="chip"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #0655cb,
+                                    #002f77
+                                );
+                            "
+                        ></div>
+                        <div class="meta">
+                            <div class="name">course-header gradient</div>
+                            <div class="role">135° · blue→navy · the only gradient</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div
+                            class="chip"
+                            style="background: #0655cb; opacity: 0.1"
+                        ></div>
+                        <div class="meta">
+                            <div class="name">blue @ 10%</div>
+                            <div class="role">tinted badge/banner bg</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #002f77"></div>
+                        <div class="meta">
+                            <div class="name">navy (Blue 3)</div>
+                            <div class="role">#002F77 · deep accents, gradient end</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="label" style="margin: 18px 0 8px">
+                    Secondary — Yellow (highlight)
+                </h3>
+                <div class="grid g4">
+                    <div class="swatch">
+                        <div class="chip" style="background: #ffca00"></div>
+                        <div class="meta">
+                            <div class="name">yellow</div>
+                            <div class="role">
+                                #FFCA00 · highlights, offers, savings, featured
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #d9a901"></div>
+                        <div class="meta">
+                            <div class="name">gold</div>
+                            <div class="role">#D9A901 · supporting</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #b48c0e"></div>
+                        <div class="meta">
+                            <div class="name">gold deep</div>
+                            <div class="role">#B48C0E · Gold 2</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div
+                            class="chip"
+                            style="background: #ffca00; opacity: 0.12"
+                        ></div>
+                        <div class="meta">
+                            <div class="name">yellow @ 12%</div>
+                            <div class="role">tinted highlight bg</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="label" style="margin: 18px 0 8px">
+                    Functional (UI signals — not brand colors)
+                </h3>
+                <div class="grid g4">
+                    <div class="swatch">
+                        <div class="chip" style="background: #22c55e"></div>
+                        <div class="meta">
+                            <div class="name">success</div>
+                            <div class="role">
+                                #22C55E · passed, complete (feedback only)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #f59e0b"></div>
+                        <div class="meta">
+                            <div class="name">warning</div>
+                            <div class="role">#F59E0B · caution, 50–74</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #ef4444"></div>
+                        <div class="meta">
+                            <div class="name">error</div>
+                            <div class="role">
+                                #EF4444 · fail, destructive, &lt;50
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #9ca3af"></div>
+                        <div class="meta">
+                            <div class="name">neutral</div>
+                            <div class="role">
+                                #9CA3AF · disabled, not started
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="label" style="margin: 18px 0 8px">
+                    Surfaces & text
+                </h3>
+                <div class="grid g5">
+                    <div class="swatch">
+                        <div class="chip" style="background: #f5f5f5"></div>
+                        <div class="meta">
+                            <div class="name">page</div>
+                            <div class="role">#F5F5F5</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div
+                            class="chip"
+                            style="
+                                background: #ffffff;
+                                border-bottom: 1px solid var(--border);
+                            "
+                        ></div>
+                        <div class="meta">
+                            <div class="name">card</div>
+                            <div class="role">#FFFFFF</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #1f2937"></div>
+                        <div class="meta">
+                            <div class="name">text / primary</div>
+                            <div class="role">#1F2937</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #6b7280"></div>
+                        <div class="meta">
+                            <div class="name">text / secondary</div>
+                            <div class="role">#6B7280</div>
+                        </div>
+                    </div>
+                    <div class="swatch">
+                        <div class="chip" style="background: #e5e7eb"></div>
+                        <div class="meta">
+                            <div class="name">border</div>
+                            <div class="role">#E5E7EB</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note" style="margin-top: 16px">
+                    ✅ Reconciled to brand: the
+                    <span class="mono">accent</span> role now points at
+                    <b>brand blue</b>, so all interactive hovers/highlights are
+                    blue. <b>Green/red/amber are functional UI signals only</b>
+                    (not brand colors); featured/promo cues use
+                    <b>brand yellow</b>.
+                </div>
+            </section>
+
+            <!-- TYPOGRAPHY -->
+            <section id="type">
+                <h2>Typography <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    Dubai, weights 300 / 400 / 500 / 700. (600 is not shipped —
+                    map "semibold" to 700.)
+                </p>
+                <div class="panel">
+                    <div class="typerow">
+                        <span class="tag">Display · 24 / 700</span
+                        ><span style="font-size: 24px; font-weight: 700"
+                            >أهلاً يوسف! 85%</span
+                        >
+                    </div>
+                    <div class="typerow">
+                        <span class="tag">Title · 18–20 / 700</span
+                        ><span style="font-size: 18px; font-weight: 700"
+                            >التقرير الأكاديمي</span
+                        >
+                    </div>
+                    <div class="typerow">
+                        <span class="tag">Card heading · 14 / 700</span
+                        ><span style="font-size: 14px; font-weight: 700"
+                            >مقدمة في الكيمياء</span
+                        >
+                    </div>
+                    <div class="typerow">
+                        <span class="tag">Body · 14–16 / 400</span
+                        ><span style="font-size: 16px; font-weight: 400"
+                            >شكراً يا دكتور، فهمت الموضوع تماماً.</span
+                        >
+                    </div>
+                    <div class="typerow">
+                        <span class="tag">Label · 12 / 400–700</span
+                        ><span style="font-size: 12px; font-weight: 500"
+                            >رقم الهاتف</span
+                        >
+                    </div>
+                    <div class="typerow">
+                        <span class="tag">Meta · 10–11 / 400</span
+                        ><span style="font-size: 10px; color: var(--text-2)"
+                            >منذ ٣ أيام · 25 دقيقة</span
+                        >
+                    </div>
+                </div>
+                <div class="panel" style="margin-top: 12px">
+                    <div class="label" style="margin-bottom: 8px">Weights</div>
+                    <div class="flexwrap" style="gap: 24px">
+                        <span style="font-weight: 300; font-size: 18px"
+                            >Light 300 خفيف</span
+                        >
+                        <span style="font-weight: 400; font-size: 18px"
+                            >Regular 400 عادي</span
+                        >
+                        <span style="font-weight: 500; font-size: 18px"
+                            >Medium 500 متوسط</span
+                        >
+                        <span style="font-weight: 700; font-size: 18px"
+                            >Bold 700 عريض</span
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- SPACING -->
+            <section id="space">
+                <h2>Spacing <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    4px base unit. 16px is the default rhythm (side margins,
+                    card padding, section gaps).
+                </p>
+                <div class="panel">
+                    <div class="spacebar">
+                        <div class="box" style="width: 2px"></div>
+                        <span class="t">2 · hairline</span>
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 4px"></div>
+                        <span class="t">4 · tight gap</span>
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 8px"></div>
+                        <span class="t">8 · small gap</span>
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 12px"></div>
+                        <span class="t">12 · row/control padding</span>
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 16px"></div>
+                        <span class="t"
+                            >16 · default — side margins, card padding</span
+                        >
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 24px"></div>
+                        <span class="t">24 · roomy card padding, dialog</span>
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 48px"></div>
+                        <span class="t">48 · success screens</span>
+                    </div>
+                    <div class="spacebar">
+                        <div class="box" style="width: 80px"></div>
+                        <span class="t">80 · bottom padding (clears nav)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RADIUS -->
+            <section id="radius">
+                <h2>Radius <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    Derived from a 12px base. Everything is rounded — no sharp
+                    corners.
+                </p>
+                <div class="grid g5">
+                    <div>
+                        <div class="radbox" style="border-radius: 4px"></div>
+                        <div class="radcap">4 · checkbox</div>
+                    </div>
+                    <div>
+                        <div class="radbox" style="border-radius: 8px"></div>
+                        <div class="radcap">8 · sm</div>
+                    </div>
+                    <div>
+                        <div class="radbox" style="border-radius: 10px"></div>
+                        <div class="radcap">10 · buttons/inputs</div>
+                    </div>
+                    <div>
+                        <div class="radbox" style="border-radius: 12px"></div>
+                        <div class="radcap">12 · base (dialogs, tiles)</div>
+                    </div>
+                    <div>
+                        <div class="radbox" style="border-radius: 16px"></div>
+                        <div class="radcap">16 · cards</div>
+                    </div>
+                    <div>
+                        <div class="radbox" style="border-radius: 20px"></div>
+                        <div class="radcap">20 · bubbles, sheet</div>
+                    </div>
+                    <div>
+                        <div
+                            class="radbox"
+                            style="
+                                border-radius: 9999px;
+                                width: 64px;
+                                margin: 0 auto;
+                            "
+                        ></div>
+                        <div class="radcap">full · pills/avatars</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ELEVATION -->
+            <section id="elev">
+                <h2>Elevation <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    Deliberately subtle. Borders + surface contrast do most of
+                    the work.
+                </p>
+                <div class="grid g4" style="background: var(--page)">
+                    <div
+                        class="elev"
+                        style="
+                            box-shadow: none;
+                            border: 1px solid var(--border);
+                        "
+                    >
+                        flat (border)
+                    </div>
+                    <div class="elev" style="box-shadow: var(--sh-rest)">
+                        resting card · sm
+                    </div>
+                    <div class="elev" style="box-shadow: var(--sh-hover)">
+                        hover · md
+                    </div>
+                    <div class="elev" style="box-shadow: var(--sh-overlay)">
+                        overlay · lg
+                    </div>
+                </div>
+            </section>
+
+            <!-- BUTTONS -->
+            <section id="buttons">
+                <h2>Buttons <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    One primary action per screen. Variants below; purchase CTAs
+                    are success-framed (green).
+                </p>
+                <div class="panel">
+                    <div class="label" style="margin-bottom: 10px">
+                        Variants
+                    </div>
+                    <div class="flexwrap">
+                        <button class="btn btn-primary">زر أساسي</button>
+                        <button class="btn btn-success">إجراء إيجابي</button>
+                        <button class="btn btn-destructive">حذف</button>
+                        <button class="btn btn-outline">محدّد</button>
+                        <button class="btn btn-secondary">ثانوي</button>
+                        <button class="btn btn-ghost">شبح</button>
+                        <button class="btn btn-link">رابط</button>
+                    </div>
+                    <div class="label" style="margin: 18px 0 10px">Sizes</div>
+                    <div class="flexwrap">
+                        <button class="btn btn-primary btn-xs">xs · 24</button>
+                        <button class="btn btn-primary btn-sm">sm · 32</button>
+                        <button class="btn btn-primary">default · 36</button>
+                        <button class="btn btn-primary btn-lg">lg · 40</button>
+                    </div>
+                    <div class="label" style="margin: 18px 0 10px">
+                        Full-width CTA (≥44px touch target)
+                    </div>
+                    <button class="btn btn-success btn-cta">
+                        ادفع 500 ج.م
+                    </button>
+                </div>
+            </section>
+
+            <!-- FORMS -->
+            <section id="forms">
+                <h2>Form controls <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    Inputs 16px text on mobile (prevents zoom). Phone/OTP/key
+                    fields force LTR.
+                </p>
+                <div class="grid g2">
+                    <div class="panel">
+                        <label class="field" style="margin-bottom: 14px"
+                            ><span class="lab">رقم الهاتف</span
+                            ><input class="inp" dir="ltr" value="01012345678"
+                        /></label>
+                        <label class="field" style="margin-bottom: 14px"
+                            ><span class="lab">كلمة المرور (focus)</span
+                            ><input
+                                class="inp"
+                                type="password"
+                                value="123456"
+                                style="
+                                    border-color: #0655cb;
+                                    box-shadow: 0 0 0 3px rgba(6, 85, 203, 0.5);
+                                "
+                        /></label>
+                        <label class="field"
+                            ><span class="lab">حقل غير صحيح</span
+                            ><input class="inp err" value="01x" />
+                            <div class="errline">
+                                رقم الهاتف غير صحيح
+                            </div></label
+                        >
+                    </div>
+                    <div class="panel">
+                        <span class="lab">رمز التحقق (OTP)</span>
+                        <input
+                            class="inp otp"
+                            dir="ltr"
+                            value="1234"
+                            style="margin-bottom: 16px"
+                        />
+                        <span class="lab">اختر الصف</span>
+                        <div
+                            class="inp"
+                            style="
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                margin-bottom: 16px;
+                                color: var(--text);
+                            "
+                        >
+                            الصف الثالث الإعدادي
+                            <span style="color: var(--text-2)">▾</span>
+                        </div>
+                        <div class="checkrow">
+                            <span class="cbx on">✓</span> أوافق على سياسة
+                            الاسترداد
+                        </div>
+                        <div class="checkrow" style="margin-top: 10px">
+                            <span class="cbx"></span> خيار غير محدد
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BADGES -->
+            <section id="badges">
+                <h2>
+                    Badges & chips <span class="tier u">Universal</span>
+                    <span class="tier s">Student</span>
+                </h2>
+                <p class="sub">
+                    Color and label carry meaning. Chips: active = filled;
+                    channel unread color encodes the channel.
+                </p>
+                <div class="panel">
+                    <div class="label" style="margin-bottom: 10px">
+                        Status badges
+                    </div>
+                    <div class="flexwrap">
+                        <span class="badge b-blue">مع متابعة</span>
+                        <span class="badge b-gray">ذاتي</span>
+                        <span class="badge b-gray">أونلاين</span>
+                        <span class="badge b-green">ناجح</span>
+                        <span class="badge b-red">يحتاج تحسين</span>
+                        <span class="badge b-orange">تنبيه</span>
+                        <span class="badge b-blue-solid">متفوق</span>
+                    </div>
+                    <div class="label" style="margin: 18px 0 10px">
+                        Filter chips — brand blue (both rows; prototype's green
+                        type-chips superseded)
+                    </div>
+                    <div class="flexwrap" style="margin-bottom: 10px">
+                        <span class="chip blue active">الكل</span
+                        ><span class="chip blue">كيمياء</span
+                        ><span class="chip blue">رياضيات</span
+                        ><span class="chip blue">فيزياء</span>
+                    </div>
+                    <div class="flexwrap">
+                        <span class="chip blue active">الكل</span
+                        ><span class="chip blue">موجّه</span
+                        ><span class="chip blue">ذاتي</span>
+                    </div>
+                    <div class="label" style="margin: 18px 0 10px">
+                        Channel unread badges
+                    </div>
+                    <div class="flexwrap">
+                        <span
+                            >guided
+                            <span class="badge b-blue-solid">2</span></span
+                        >
+                        <span style="margin-inline-start: 16px"
+                            >discussion
+                            <span class="badge b-green">5</span></span
+                        >
+                        <span style="margin-inline-start: 16px"
+                            >system
+                            <span
+                                class="badge"
+                                style="background: #f59e0b; color: #fff"
+                                >3</span
+                            ></span
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHARTS -->
+            <section id="charts">
+                <h2>Data viz <span class="tier s">Student</span></h2>
+                <p class="sub">
+                    Stats are always visualized. RingChart (overall) + StatBar
+                    (single metric).
+                </p>
+                <div class="grid g2">
+                    <div
+                        class="panel"
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 24px;
+                            justify-content: center;
+                        "
+                    >
+                        <!-- RingChart size 120: strokeWidth 12, r 54, circ 339.29, value 65 -> offset 118.75 -->
+                        <div
+                            style="
+                                position: relative;
+                                width: 120px;
+                                height: 120px;
+                            "
+                        >
+                            <svg
+                                width="120"
+                                height="120"
+                                style="transform: rotate(-90deg)"
+                            >
+                                <circle
+                                    cx="60"
+                                    cy="60"
+                                    r="54"
+                                    fill="none"
+                                    stroke="#E5E7EB"
+                                    stroke-width="12"
+                                ></circle>
+                                <circle
+                                    cx="60"
+                                    cy="60"
+                                    r="54"
+                                    fill="none"
+                                    stroke="#0655CB"
+                                    stroke-width="12"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="339.29"
+                                    stroke-dashoffset="118.75"
+                                ></circle>
+                            </svg>
+                            <div
+                                style="
+                                    position: absolute;
+                                    inset: 0;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    justify-content: center;
+                                "
+                            >
+                                <span
+                                    style="
+                                        font-size: 20px;
+                                        font-weight: 700;
+                                        color: #0655cb;
+                                    "
+                                    >65%</span
+                                >
+                                <span
+                                    style="
+                                        font-size: 10px;
+                                        color: var(--text-2);
+                                    "
+                                    >اكتمال</span
+                                >
+                            </div>
+                        </div>
+                        <div
+                            style="
+                                position: relative;
+                                width: 70px;
+                                height: 70px;
+                            "
+                        >
+                            <svg
+                                width="70"
+                                height="70"
+                                style="transform: rotate(-90deg)"
+                            >
+                                <circle
+                                    cx="35"
+                                    cy="35"
+                                    r="31.5"
+                                    fill="none"
+                                    stroke="#E5E7EB"
+                                    stroke-width="7"
+                                ></circle>
+                                <circle
+                                    cx="35"
+                                    cy="35"
+                                    r="31.5"
+                                    fill="none"
+                                    stroke="#22C55E"
+                                    stroke-width="7"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="197.92"
+                                    stroke-dashoffset="49.48"
+                                ></circle>
+                            </svg>
+                            <div
+                                style="
+                                    position: absolute;
+                                    inset: 0;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                "
+                            >
+                                <span
+                                    style="
+                                        font-size: 16px;
+                                        font-weight: 700;
+                                        color: #22c55e;
+                                    "
+                                    >75%</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="statbar" style="margin-bottom: 16px">
+                            <div class="head">
+                                <span class="l">نسبة الإكمال الكلية</span
+                                ><span class="v" style="color: #0655cb"
+                                    >65%</span
+                                >
+                            </div>
+                            <div class="track">
+                                <div
+                                    class="fill"
+                                    style="width: 65%; background: #0655cb"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="statbar" style="margin-bottom: 16px">
+                            <div class="head">
+                                <span class="l">متوسط درجات الاختبارات</span
+                                ><span class="v" style="color: #22c55e"
+                                    >82%</span
+                                >
+                            </div>
+                            <div class="track">
+                                <div
+                                    class="fill"
+                                    style="width: 82%; background: #22c55e"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="statbar">
+                            <div class="head">
+                                <span class="l">اختبار ضعيف</span
+                                ><span class="v" style="color: #ef4444"
+                                    >38%</span
+                                >
+                            </div>
+                            <div class="track">
+                                <div
+                                    class="fill"
+                                    style="width: 38%; background: #ef4444"
+                                ></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px">
+                            <div class="label" style="margin-bottom: 6px">
+                                Linear progress (8px) & mini (6px)
+                            </div>
+                            <div class="track" style="margin-bottom: 8px">
+                                <div
+                                    class="fill"
+                                    style="width: 50%; background: #0655cb"
+                                ></div>
+                            </div>
+                            <div class="track" style="height: 6px">
+                                <div
+                                    class="fill"
+                                    style="width: 70%; background: #0655cb"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARDS -->
+            <section id="cards">
+                <h2>Cards & composites <span class="tier s">Student</span></h2>
+                <p class="sub">
+                    CourseCard, PerformanceTag, course-header gradient.
+                </p>
+                <div class="grid g2">
+                    <div class="ccard">
+                        <div
+                            class="cover"
+                            style="
+                                width: 56px;
+                                height: 56px;
+                                background: rgba(34, 197, 94, 0.12);
+                                font-size: 24px;
+                            "
+                        >
+                            🧪
+                        </div>
+                        <div style="flex: 1; min-width: 0">
+                            <div style="font-size: 14px; font-weight: 700">
+                                كيمياء — الفصل الدراسي الأول
+                            </div>
+                            <div
+                                style="
+                                    font-size: 12px;
+                                    color: var(--text-2);
+                                    margin-top: 2px;
+                                "
+                            >
+                                د. عبدالله الحبشي
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 8px;
+                                    margin-top: 10px;
+                                "
+                            >
+                                <div class="track" style="flex: 1">
+                                    <div
+                                        class="fill"
+                                        style="width: 65%; background: #0655cb"
+                                    ></div>
+                                </div>
+                                <span
+                                    style="
+                                        font-size: 10px;
+                                        color: var(--text-2);
+                                    "
+                                    >65%</span
+                                >
+                            </div>
+                            <div
+                                class="flexwrap"
+                                style="gap: 6px; margin-top: 8px"
+                            >
+                                <span class="badge b-blue">مع متابعة</span
+                                ><span class="badge b-gray">أونلاين</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel" style="padding: 0; overflow: hidden">
+                        <div
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #0655cb,
+                                    #002f77
+                                );
+                                color: #fff;
+                                padding: 16px;
+                            "
+                        >
+                            <div
+                                style="
+                                    display: flex;
+                                    gap: 12px;
+                                    align-items: center;
+                                "
+                            >
+                                <div
+                                    class="cover"
+                                    style="
+                                        width: 56px;
+                                        height: 56px;
+                                        background: rgba(255, 255, 255, 0.2);
+                                        font-size: 26px;
+                                    "
+                                >
+                                    🧪
+                                </div>
+                                <div style="flex: 1">
+                                    <div style="font-weight: 700">
+                                        منهج شهر أكتوبر
+                                    </div>
+                                    <div
+                                        style="
+                                            font-size: 12px;
+                                            color: rgba(255, 255, 255, 0.7);
+                                        "
+                                    >
+                                        د. عبدالله الحبشي
+                                    </div>
+                                    <div
+                                        style="
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 8px;
+                                            margin-top: 8px;
+                                        "
+                                    >
+                                        <div
+                                            class="track"
+                                            style="
+                                                flex: 1;
+                                                background: rgba(
+                                                    255,
+                                                    255,
+                                                    255,
+                                                    0.2
+                                                );
+                                            "
+                                        >
+                                            <div
+                                                class="fill"
+                                                style="
+                                                    width: 65%;
+                                                    background: #fff;
+                                                "
+                                            ></div>
+                                        </div>
+                                        <span
+                                            style="
+                                                font-size: 12px;
+                                                color: rgba(
+                                                    255,
+                                                    255,
+                                                    255,
+                                                    0.85
+                                                );
+                                            "
+                                            >65%</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="flexwrap"
+                                style="gap: 8px; margin-top: 12px"
+                            >
+                                <span
+                                    class="badge"
+                                    style="
+                                        background: rgba(255, 255, 255, 0.2);
+                                        color: #fff;
+                                    "
+                                    >مع متابعة</span
+                                >
+                                <span
+                                    class="badge"
+                                    style="
+                                        background: rgba(255, 255, 255, 0.2);
+                                        color: #fff;
+                                    "
+                                    >أونلاين</span
+                                >
+                                <span
+                                    class="badge"
+                                    style="
+                                        background: rgba(255, 255, 255, 0.2);
+                                        color: #fff;
+                                    "
+                                    >تسلسلي</span
+                                >
+                            </div>
+                        </div>
+                        <div style="padding: 14px">
+                            <div
+                                class="perftag"
+                                style="background: rgba(34, 197, 94, 0.1)"
+                            >
+                                <div
+                                    style="
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                    "
+                                >
+                                    <span
+                                        style="color: #22c55e; font-size: 20px"
+                                        >📈</span
+                                    >
+                                    <div>
+                                        <div
+                                            style="
+                                                font-size: 12px;
+                                                color: var(--text-2);
+                                            "
+                                        >
+                                            تقييم الأداء
+                                        </div>
+                                        <div
+                                            style="
+                                                font-size: 16px;
+                                                font-weight: 700;
+                                                color: #22c55e;
+                                            "
+                                        >
+                                            متفوق
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: center">
+                                    <div
+                                        style="
+                                            font-size: 24px;
+                                            font-weight: 700;
+                                            color: #22c55e;
+                                        "
+                                        dir="ltr"
+                                    >
+                                        82%
+                                    </div>
+                                    <div
+                                        style="
+                                            font-size: 10px;
+                                            color: var(--text-2);
+                                        "
+                                    >
+                                        متوسط الدرجات
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHAT -->
+            <section id="chat">
+                <h2>Chat bubbles <span class="tier s">Student</span></h2>
+                <p class="sub">
+                    Self = blue (start side); other/MTA = white with sender name
+                    (end side). 20px radius, notched tail.
+                </p>
+                <div class="chatwrap" style="max-width: 520px">
+                    <div class="bub other">
+                        <div class="who">د. عبدالله الحبشي</div>
+                        أهلاً يوسف، إزاي ممكن أساعدك النهاردة؟
+                        <div class="ts">10:15 ص</div>
+                    </div>
+                    <div class="bub self">
+                        عندي سؤال في الباب الرابع لو سمحت 📖
+                        <div class="ts">10:16 ص</div>
+                    </div>
+                    <div
+                        style="
+                            align-self: center;
+                            background: var(--sunken-strong);
+                            color: var(--text-2);
+                            font-size: 12px;
+                            padding: 6px 14px;
+                            border-radius: var(--r-lg);
+                        "
+                    >
+                        تم إسناد المعلم المساعد لك
+                    </div>
+                    <div
+                        style="
+                            align-self: center;
+                            background: #fff;
+                            box-shadow: var(--sh-rest);
+                            padding: 12px 16px;
+                            border-radius: var(--r-lg);
+                            font-size: 13px;
+                        "
+                    >
+                        هل فهمت الإجابة؟
+                        <div class="flexwrap" style="margin-top: 8px">
+                            <span
+                                class="badge"
+                                style="
+                                    background: rgba(34, 197, 94, 0.1);
+                                    color: #15803d;
+                                    padding: 4px 12px;
+                                "
+                                >👍 نعم</span
+                            >
+                            <span
+                                class="badge"
+                                style="
+                                    background: rgba(239, 68, 68, 0.1);
+                                    color: #b91c1c;
+                                    padding: 4px 12px;
+                                "
+                                >👎 لا</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHROME -->
+            <section id="chrome">
+                <h2>App chrome <span class="tier s">Student</span></h2>
+                <p class="sub">
+                    512px column. TopBar 56px (white, hairline). BottomNav 64px
+                    — active = blue, bold, thicker icon.
+                </p>
+                <div
+                    class="flexwrap"
+                    style="gap: 24px; align-items: flex-start"
+                >
+                    <div class="device">
+                        <div class="topbar">
+                            <span class="brandmark" style="font-size: 15px"
+                                ><span
+                                    class="dot"
+                                    style="width: 22px; height: 22px"
+                                ></span>
+                                أبواب بلس</span
+                            >
+                            <span class="iconbadge">
+                                <svg
+                                    class="ic"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#6B7280"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <circle cx="8" cy="21" r="1" />
+                                    <circle cx="19" cy="21" r="1" />
+                                    <path
+                                        d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+                                    />
+                                </svg>
+                                <span class="cnt cartbadge">2</span>
+                            </span>
+                        </div>
+                        <div
+                            style="
+                                height: 120px;
+                                background: var(--page);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: var(--text-2);
+                                font-size: 12px;
+                            "
+                        >
+                            محتوى الشاشة
+                        </div>
+                        <div class="bottomnav">
+                            <div class="navitem active">
+                                <svg
+                                    class="ic"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                                    />
+                                    <path d="M9 22V12h6v10" /></svg
+                                >الرئيسية
+                            </div>
+                            <div class="navitem">
+                                <svg
+                                    class="ic"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"
+                                    />
+                                    <path
+                                        d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+                                    /></svg
+                                >كورساتي
+                            </div>
+                            <div class="navitem">
+                                <span class="iconbadge"
+                                    ><svg
+                                        class="ic"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path
+                                            d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"
+                                        /></svg
+                                    ><span class="cnt">3</span></span
+                                >الرسائل
+                            </div>
+                            <div class="navitem">
+                                <svg
+                                    class="ic"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polygon
+                                        points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+                                    /></svg
+                                >استكشف
+                            </div>
+                            <div class="navitem">
+                                <svg
+                                    class="ic"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path
+                                        d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                                    />
+                                    <circle cx="12" cy="7" r="4" /></svg
+                                >حسابي
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex: 1; min-width: 260px">
+                        <table class="tok">
+                            <tr>
+                                <th>Element</th>
+                                <th>Spec</th>
+                            </tr>
+                            <tr>
+                                <td>Container</td>
+                                <td>512px max, centered</td>
+                            </tr>
+                            <tr>
+                                <td>TopBar</td>
+                                <td>56px, white, 1px hairline, sticky</td>
+                            </tr>
+                            <tr>
+                                <td>BottomNav</td>
+                                <td>64px, 5 items, blue active</td>
+                            </tr>
+                            <tr>
+                                <td>Active nav</td>
+                                <td>blue + bold label + icon stroke 2.5</td>
+                            </tr>
+                            <tr>
+                                <td>Cart badge</td>
+                                <td>blue · 16px · leading-top corner</td>
+                            </tr>
+                            <tr>
+                                <td>Unread badge</td>
+                                <td>red (nav) · channel-colored (list)</td>
+                            </tr>
+                            <tr>
+                                <td>Content bottom pad</td>
+                                <td>80px (clears nav)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STATES -->
+            <section id="states">
+                <h2>State patterns <span class="tier u">Universal</span></h2>
+                <p class="sub">
+                    Empty states are encouraging. Tinted banners for status.
+                    Locked = 40% + lock.
+                </p>
+                <div class="grid g3">
+                    <div class="panel empty">
+                        <span class="em">📭</span>
+                        <div class="ln">لا توجد كورسات بعد</div>
+                        <button
+                            class="btn btn-outline"
+                            style="margin-top: 10px"
+                        >
+                            استكشف الكورسات
+                        </button>
+                    </div>
+                    <div
+                        class="panel"
+                        style="
+                            border-color: rgba(34, 197, 94, 0.2);
+                            background: rgba(34, 197, 94, 0.06);
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                color: #15803d;
+                                font-weight: 700;
+                            "
+                        >
+                            ✅ لا توجد تنبيهات
+                        </div>
+                        <div
+                            style="
+                                font-size: 12px;
+                                color: #15803d;
+                                margin-top: 4px;
+                            "
+                        >
+                            أنت في المسار الصحيح!
+                        </div>
+                    </div>
+                    <div
+                        class="panel"
+                        style="
+                            border-color: rgba(245, 158, 11, 0.3);
+                            background: rgba(245, 158, 11, 0.08);
+                        "
+                    >
+                        <div
+                            style="
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                                color: #b45309;
+                                font-weight: 700;
+                            "
+                        >
+                            ⚠ تنبيه
+                        </div>
+                        <div
+                            style="
+                                font-size: 12px;
+                                color: #b45309;
+                                margin-top: 4px;
+                            "
+                        >
+                            • الكورس مشمول في المسار
+                        </div>
+                    </div>
+                </div>
+                <div class="panel" style="margin-top: 16px">
+                    <div class="label" style="margin-bottom: 10px">
+                        Lesson rows — default / completed / locked
+                    </div>
+                    <div
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            padding: 10px 0;
+                            border-bottom: 1px solid var(--border);
+                        "
+                    >
+                        <span
+                            class="cover"
+                            style="
+                                width: 36px;
+                                height: 36px;
+                                background: var(--sunken-strong);
+                                border-radius: var(--r-lg);
+                            "
+                            >▶</span
+                        ><span style="font-size: 14px; flex: 1"
+                            >محاضرة الأسبوع الأول</span
+                        ><span class="label">25 دقيقة · فيديو</span>
+                    </div>
+                    <div
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            padding: 10px 0;
+                            border-bottom: 1px solid var(--border);
+                        "
+                    >
+                        <span
+                            class="cover"
+                            style="
+                                width: 36px;
+                                height: 36px;
+                                background: var(--sunken-strong);
+                                border-radius: var(--r-lg);
+                            "
+                            >✓</span
+                        ><span
+                            style="
+                                font-size: 14px;
+                                flex: 1;
+                                color: #22c55e;
+                                font-weight: 500;
+                            "
+                            >اختبار الأسبوع الأول</span
+                        ><span class="badge b-green" style="font-size: 10px"
+                            >85%</span
+                        ><span style="color: #22c55e">✓</span>
+                    </div>
+                    <div
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            padding: 10px 0;
+                            opacity: 0.4;
+                        "
+                    >
+                        <span
+                            class="cover"
+                            style="
+                                width: 36px;
+                                height: 36px;
+                                background: var(--sunken-strong);
+                                border-radius: var(--r-lg);
+                            "
+                            >🔒</span
+                        ><span style="font-size: 14px; flex: 1"
+                            >الأسبوع الثاني (مقفل)</span
+                        >
+                    </div>
+                </div>
+                <div class="panel" style="margin-top: 16px">
+                    <div class="label" style="margin-bottom: 10px">
+                        Tint ladder
+                    </div>
+                    <div class="grid g4">
+                        <div
+                            class="tint"
+                            style="background: rgba(6, 85, 203, 0.08)"
+                        >
+                            8% · subtle
+                        </div>
+                        <div
+                            class="tint"
+                            style="background: rgba(6, 85, 203, 0.1)"
+                        >
+                            10% · soft
+                        </div>
+                        <div
+                            class="tint"
+                            style="background: rgba(6, 85, 203, 0.12)"
+                        >
+                            12% · medium
+                        </div>
+                        <div
+                            class="tint"
+                            style="background: rgba(6, 85, 203, 0.2)"
+                        >
+                            20% · on-color
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TOKENS -->
+            <section id="tokens">
+                <h2>Token reference</h2>
+                <p class="sub">
+                    Canonical values. Machine-readable export:
+                    <span class="mono">design-system/design-tokens.json</span>.
+                </p>
+                <div class="grid g2">
+                    <table class="tok">
+                        <tr>
+                            <th>Color</th>
+                            <th>Hex</th>
+                        </tr>
+                        <tr>
+                            <td>brand / blue</td>
+                            <td><span class="mono">#0655CB</span></td>
+                        </tr>
+                        <tr>
+                            <td>brand / blue-hover</td>
+                            <td><span class="mono">#0044AE</span></td>
+                        </tr>
+                        <tr>
+                            <td>brand / navy</td>
+                            <td><span class="mono">#002F77</span></td>
+                        </tr>
+                        <tr>
+                            <td>brand / yellow (secondary)</td>
+                            <td><span class="mono">#FFCA00</span></td>
+                        </tr>
+                        <tr>
+                            <td>brand / gold</td>
+                            <td><span class="mono">#D9A901</span></td>
+                        </tr>
+                        <tr>
+                            <td>success <span class="mono">(fn)</span></td>
+                            <td><span class="mono">#22C55E</span></td>
+                        </tr>
+                        <tr>
+                            <td>warning</td>
+                            <td><span class="mono">#F59E0B</span></td>
+                        </tr>
+                        <tr>
+                            <td>error</td>
+                            <td><span class="mono">#EF4444</span></td>
+                        </tr>
+                        <tr>
+                            <td>neutral</td>
+                            <td><span class="mono">#9CA3AF</span></td>
+                        </tr>
+                        <tr>
+                            <td>page</td>
+                            <td><span class="mono">#F5F5F5</span></td>
+                        </tr>
+                        <tr>
+                            <td>card</td>
+                            <td><span class="mono">#FFFFFF</span></td>
+                        </tr>
+                        <tr>
+                            <td>text / primary</td>
+                            <td><span class="mono">#1F2937</span></td>
+                        </tr>
+                        <tr>
+                            <td>text / secondary</td>
+                            <td><span class="mono">#6B7280</span></td>
+                        </tr>
+                        <tr>
+                            <td>border</td>
+                            <td><span class="mono">#E5E7EB</span></td>
+                        </tr>
+                    </table>
+                    <table class="tok">
+                        <tr>
+                            <th>Scale</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>spacing base</td>
+                            <td>4px</td>
+                        </tr>
+                        <tr>
+                            <td>radius — sm / md / base</td>
+                            <td>8 / 10 / 12px</td>
+                        </tr>
+                        <tr>
+                            <td>radius — xl / 2xl / full</td>
+                            <td>16 / 20 / 9999px</td>
+                        </tr>
+                        <tr>
+                            <td>font sizes</td>
+                            <td>10·11·12·14·16·18·20·24px</td>
+                        </tr>
+                        <tr>
+                            <td>font weights</td>
+                            <td>300 / 400 / 500 / 700</td>
+                        </tr>
+                        <tr>
+                            <td>control height</td>
+                            <td>36px (sm 32)</td>
+                        </tr>
+                        <tr>
+                            <td>touch target</td>
+                            <td>44px min</td>
+                        </tr>
+                        <tr>
+                            <td>container</td>
+                            <td>512px</td>
+                        </tr>
+                        <tr>
+                            <td>TopBar / BottomNav</td>
+                            <td>56 / 64px</td>
+                        </tr>
+                        <tr>
+                            <td>progress track</td>
+                            <td>8px (mini 6px)</td>
+                        </tr>
+                        <tr>
+                            <td>score thresholds</td>
+                            <td>pass 50 · excellent 75</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <footer>
+                Abwaab Design System — rendered styleguide. Companion to the
+                markdown docs in <span class="mono">/docs</span>. Universal
+                foundation + student-surface conventions · 100% RTL · Dubai.
+            </footer>
+        </div>
+    </body>
+</html>

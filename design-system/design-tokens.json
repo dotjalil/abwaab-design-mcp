@@ -1,0 +1,183 @@
+{
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "AbwaabPlus design tokens — W3C Design Tokens Community Group (DTCG) format. Universal foundation tier. Stack-agnostic export of color, typography, spacing, radius, elevation, and student-surface layout constants. See design-system/*.md for usage rules.",
+  "color": {
+    "$type": "color",
+    "brand": {
+      "blue": { "$value": "#0655CB", "$description": "Primary brand blue (Abwaab). Primary actions, active states, links, focus rings, progress fills." },
+      "blue-hover": { "$value": "#0044AE", "$description": "Hover/pressed (Abwaab Blue 2); mid stop of the course-header gradient." },
+      "navy": { "$value": "#002F77", "$description": "Darkest brand blue (Abwaab Blue 3); dark stop of the course-header gradient, deep accents." },
+      "yellow": { "$value": "#FFCA00", "$description": "Secondary brand color (Abwaab Yellow). Highlights, special offers, featured/promo accents, numbers-on-blue." },
+      "gold": { "$value": "#D9A901", "$description": "Supporting gold (Abwaab Gold)." },
+      "gold-deep": { "$value": "#B48C0E", "$description": "Deep gold (Abwaab Gold 2 / Yellow 3)." }
+    },
+    "semantic": {
+      "$description": "Functional UI signals only — NOT brand colors, and intentionally so (state meaning cannot be carried by blue+yellow alone). Use exclusively to communicate state, never decoratively or as CTAs (CTAs are brand blue). The *-dark values are the readable text/icon shade on the matching ~10% tint.",
+      "success": { "$value": "#22C55E", "$description": "Functional success: passed/complete/on-track." },
+      "success-dark": { "$value": "#15803D", "$description": "Text/icon on a success @10% tint." },
+      "success-light": { "$value": "#86EFAC" },
+      "error": { "$value": "#EF4444", "$description": "Functional error/destructive." },
+      "error-dark": { "$value": "#B91C1C", "$description": "Text/icon on an error @10% tint." },
+      "warning": { "$value": "#F59E0B", "$description": "Functional warning/in-between. Amber — kept visually distinct from brand gold #D9A901." },
+      "warning-dark": { "$value": "#B45309", "$description": "Text/icon on a warning @10% tint." },
+      "neutral": { "$value": "#9CA3AF", "$description": "Disabled/not-started/secondary meta. Gray." }
+    },
+    "surface": {
+      "page": { "$value": "#F5F5F5", "$description": "App/page background." },
+      "card": { "$value": "#FFFFFF", "$description": "Cards, top bar, bottom nav, popovers, sheets, dialogs." },
+      "sunken": { "$value": "#F9FAFB", "$description": "Inset tiles inside cards (approx; prototype uses gray-50)." },
+      "sunken-strong": { "$value": "#F3F4F6", "$description": "Denser inset fill (approx; prototype uses gray-100)." },
+      "scrollbar": { "$value": "#D1D5DB", "$description": "4px scrollbar thumb. Neutral ramp (gray-300); intentional UI-chrome gray, not a brand neutral." }
+    },
+    "text": {
+      "primary": { "$value": "#1F2937", "$description": "Headings, primary body, values." },
+      "secondary": { "$value": "#6B7280", "$description": "Labels, meta, captions, placeholders." },
+      "disabled": { "$value": "#9CA3AF", "$description": "Disabled text, inactive nav icons." },
+      "on-brand": { "$value": "#FFFFFF", "$description": "Text on brand-blue/semantic fills." }
+    },
+    "border": {
+      "default": { "$value": "#E5E7EB", "$description": "Card borders, dividers, input borders, top-bar line." }
+    },
+    "overlay": {
+      "scrim": { "$value": "#00000080", "$description": "Modal & sheet backdrop = black at 50%." }
+    },
+    "chart": {
+      "1": { "$value": "#0655CB" },
+      "2": { "$value": "#22C55E" },
+      "3": { "$value": "#EF4444" },
+      "4": { "$value": "#F59E0B" },
+      "5": { "$value": "#9CA3AF" }
+    },
+    "role": {
+      "$description": "Resolved role tokens. Reconciled to the Abwaab brand: 'accent' (interactive hover/highlight) points at brand blue; 'highlight' is brand yellow for featured/promo. Green/red/amber are functional semantics, not roles.",
+      "primary": { "$value": "{color.brand.blue}" },
+      "primary-foreground": { "$value": "{color.text.on-brand}" },
+      "secondary": { "$value": "{color.surface.page}" },
+      "secondary-foreground": { "$value": "{color.brand.blue}" },
+      "accent": { "$value": "{color.brand.blue}" },
+      "accent-foreground": { "$value": "{color.text.on-brand}" },
+      "highlight": { "$value": "{color.brand.yellow}" },
+      "highlight-foreground": { "$value": "{color.brand.navy}" },
+      "muted": { "$value": "{color.surface.page}" },
+      "muted-foreground": { "$value": "{color.text.secondary}" },
+      "destructive": { "$value": "{color.semantic.error}" },
+      "background": { "$value": "{color.surface.page}" },
+      "foreground": { "$value": "{color.text.primary}" },
+      "card": { "$value": "{color.surface.card}" },
+      "border": { "$value": "{color.border.default}" },
+      "ring": { "$value": "{color.brand.blue}" }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "$description": "4px base unit scale.",
+    "0_5": { "$value": "2px" },
+    "1": { "$value": "4px" },
+    "1_5": { "$value": "6px" },
+    "2": { "$value": "8px" },
+    "3": { "$value": "12px" },
+    "4": { "$value": "16px", "$description": "Default screen side margin, card padding, section gap." },
+    "5": { "$value": "20px" },
+    "6": { "$value": "24px" },
+    "8": { "$value": "32px" },
+    "12": { "$value": "48px" },
+    "20": { "$value": "80px", "$description": "Bottom scroll padding to clear the bottom nav." }
+  },
+  "radius": {
+    "$type": "dimension",
+    "$description": "Derived from a 12px base: sm=base-4, md=base-2, lg=base, xl=base+4, 2xl=base+8.",
+    "checkbox": { "$value": "4px", "$description": "Literal; checkbox only." },
+    "sm": { "$value": "8px" },
+    "md": { "$value": "10px", "$description": "Buttons, inputs, selects." },
+    "lg": { "$value": "12px", "$description": "Default. Dialogs, tabs list, segmented controls, inner tiles, list rows." },
+    "xl": { "$value": "16px", "$description": "Cards, cover/icon tiles, banners, QR." },
+    "2xl": { "$value": "20px", "$description": "Course-header cover tile, chat bubbles, bottom-sheet top corners." },
+    "full": { "$value": "9999px", "$description": "Avatars, pills, chips, progress tracks, dots." }
+  },
+  "typography": {
+    "fontFamily": {
+      "$type": "fontFamily",
+      "dubai": { "$value": ["Dubai", "sans-serif"], "$description": "Sole typeface (Arabic + Latin)." }
+    },
+    "fontWeight": {
+      "$type": "fontWeight",
+      "light": { "$value": 300 },
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "bold": { "$value": 700, "$description": "Weight 600 (semibold) is NOT shipped; map 'semibold' to 700." }
+    },
+    "fontSize": {
+      "$type": "dimension",
+      "micro": { "$value": "10px" },
+      "micro-plus": { "$value": "11px" },
+      "label": { "$value": "12px", "$description": "xs — labels, meta, badges, chips." },
+      "body": { "$value": "14px", "$description": "sm — card titles, list text, default body." },
+      "body-lg": { "$value": "16px", "$description": "base — input text (mobile)." },
+      "title": { "$value": "18px", "$description": "lg — section/dialog titles." },
+      "title-lg": { "$value": "20px", "$description": "xl." },
+      "display": { "$value": "24px", "$description": "2xl — big scores, success titles, OTP." }
+    },
+    "lineHeight": {
+      "tight": { "$value": "1.1" },
+      "snug": { "$value": "1.25" },
+      "normal": { "$value": "1.5" }
+    },
+    "styles": {
+      "$type": "typography",
+      "display": { "$value": { "fontFamily": "{typography.fontFamily.dubai}", "fontWeight": "{typography.fontWeight.bold}", "fontSize": "{typography.fontSize.display}", "lineHeight": "{typography.lineHeight.tight}" } },
+      "title": { "$value": { "fontFamily": "{typography.fontFamily.dubai}", "fontWeight": "{typography.fontWeight.bold}", "fontSize": "{typography.fontSize.title}", "lineHeight": "{typography.lineHeight.tight}" } },
+      "card-heading": { "$value": { "fontFamily": "{typography.fontFamily.dubai}", "fontWeight": "{typography.fontWeight.bold}", "fontSize": "{typography.fontSize.body}", "lineHeight": "{typography.lineHeight.snug}" } },
+      "body": { "$value": { "fontFamily": "{typography.fontFamily.dubai}", "fontWeight": "{typography.fontWeight.regular}", "fontSize": "{typography.fontSize.body}", "lineHeight": "{typography.lineHeight.normal}" } },
+      "label": { "$value": { "fontFamily": "{typography.fontFamily.dubai}", "fontWeight": "{typography.fontWeight.regular}", "fontSize": "{typography.fontSize.label}", "lineHeight": "{typography.lineHeight.normal}" } },
+      "meta": { "$value": { "fontFamily": "{typography.fontFamily.dubai}", "fontWeight": "{typography.fontWeight.regular}", "fontSize": "{typography.fontSize.micro}", "lineHeight": "{typography.lineHeight.normal}" } }
+    }
+  },
+  "elevation": {
+    "$type": "shadow",
+    "resting": { "$value": { "color": "#0000000D", "offsetX": "0px", "offsetY": "1px", "blur": "2px", "spread": "0px" }, "$description": "shadow-sm — cards at rest." },
+    "hover": { "$value": { "color": "#0000001A", "offsetX": "0px", "offsetY": "2px", "blur": "6px", "spread": "0px" }, "$description": "shadow-md — tappable cards on hover, popovers." },
+    "overlay": { "$value": { "color": "#00000026", "offsetX": "0px", "offsetY": "8px", "blur": "16px", "spread": "0px" }, "$description": "shadow-lg — dialogs, sheets." }
+  },
+  "border-width": {
+    "$type": "dimension",
+    "hairline": { "$value": "1px", "$description": "Card borders, dividers, top-bar line." }
+  },
+  "size": {
+    "$type": "dimension",
+    "touch-min": { "$value": "44px", "$description": "Minimum interactive target." },
+    "icon-chrome": { "$value": "22px", "$description": "Top bar / bottom nav icons." },
+    "icon-inline": { "$value": "18px", "$description": "Card-header / row leading icons." },
+    "icon-file": { "$value": "16px", "$description": "Inline file-type icons." },
+    "icon-hero": { "$value": "48px", "$description": "File-viewer hero icon." },
+    "progress-track": { "$value": "8px", "$description": "Linear progress / StatBar track height." },
+    "progress-track-thin": { "$value": "6px", "$description": "Mini progress bar in dense cards." }
+  },
+  "layout": {
+    "$type": "dimension",
+    "$description": "Student-surface conventions.",
+    "container-max": { "$value": "512px", "$description": "Mobile column max width (centered)." },
+    "topbar-height": { "$value": "56px" },
+    "bottomnav-height": { "$value": "64px" },
+    "screen-padding-x": { "$value": "16px" },
+    "screen-padding-y": { "$value": "16px" },
+    "content-bottom-padding": { "$value": "80px", "$description": "Clears the bottom nav." }
+  },
+  "gradient": {
+    "course-header": { "$type": "gradient", "$value": [ { "color": "#0655CB", "position": 0 }, { "color": "#002F77", "position": 1 } ], "$description": "135deg, brand blue to navy. The only gradient in the system (course-detail header)." }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "fast": { "$value": "150ms", "$description": "Hover/press color & shadow." },
+      "base": { "$value": "200ms", "$description": "Tabs, accordion, dialog, chart fill." },
+      "fill": { "$value": "300ms", "$description": "Progress/ring fill." },
+      "sheet-open": { "$value": "500ms" },
+      "sheet-close": { "$value": "300ms" }
+    }
+  },
+  "score-thresholds": {
+    "$description": "Not visual tokens — domain constants that drive color. pass=50, excellent=75.",
+    "pass": { "$value": 50 },
+    "excellent": { "$value": 75 }
+  }
+}
