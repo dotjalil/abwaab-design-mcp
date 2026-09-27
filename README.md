@@ -64,12 +64,13 @@ When an agent connects, the server sends it a short brief: RTL, the Dubai font, 
 | `get_component` | One component's anatomy, variants, states, sizes. Names are matched loosely (`button`, `ring`, `CourseCard`). |
 | `get_tokens` | Tokens with aliases resolved. Filter by path (`color.brand`, `spacing`, `typography.styles`), output as `list`, `json`, `css` (custom properties), or `tailwind` (`theme.extend`). |
 | `resolve_value` | Lint literal values. `#0066CC` → off-system, nearest is `color.brand.blue`; `600` → weight not shipped, use 700; `18px` → `typography.fontSize.title`. |
+| `get_logo` | The official logo files. No args → every variant + when to use which; `variant` → absolute path, size, allowed background, preview image; `embed: true` → a `data:` URI to inline in standalone HTML/artifacts. |
 | `known_issues` | Prototype inconsistencies, outstanding brand misalignments, and every ⚠ flag in the docs, so agents don't copy prototype bugs. |
 | `search_docs` | Keyword search that returns matching *sections*, not whole files. |
 | `list_docs` / `read_doc` | Browse the docs, or read a single section by heading. |
 | `list_components` / `list_routes` | Indexes. |
 
-It also exposes every doc as a **resource** (`abwaab-design://docs/<id>`, `abwaab-design://tokens`), and two **prompts**:
+It also exposes every doc as a **resource** (`abwaab-design://docs/<id>`, `abwaab-design://tokens`, and the logo PNGs at `abwaab-design://identity/<file>`), and two **prompts**:
 - `build-screen` (`route`, optional `stack`): a complete context pack for implementing one screen.
 - `review-ui` (`code`): a checklist-driven review of UI code against the system.
 
@@ -77,6 +78,7 @@ It also exposes every doc as a **resource** (`abwaab-design://docs/<id>`, `abwaa
 - *"Build the `/courses/[courseId]` screen in React Native using the abwaab-design MCP."*
 - *"Give me the abwaab tokens as a Tailwind theme and wire them into tailwind.config.ts."*
 - *"Review `src/components/CartItem.tsx` against the abwaab design system."*
+- *"Put the Abwaab logo in this HTML page using the abwaab-design MCP."*
 
 ### Developing the server
 
@@ -142,7 +144,11 @@ When the management console is built, it inherits the universal foundation and a
 | [`05-iconography-motion.md`](./design-system/05-iconography-motion.md) | Universal | Icon system, sizes, motion & transitions |
 | [`06-components.md`](./design-system/06-components.md) | Both (marked) | Every component: anatomy, variants, states, sizing, behavior |
 | [`07-visual-patterns.md`](./design-system/07-visual-patterns.md) | Both (marked) | Charts/stats, badge semantics, empty/loading/locked states, RTL patterns |
+| [`08-logo.md`](./design-system/08-logo.md) | Universal | Logo variants, which to use where, backgrounds, clear space, minimum size, misuse |
 | [`design-tokens.json`](./design-system/design-tokens.json) | Universal | Machine-readable token export (W3C DTCG format) |
+
+### Identity (`identity/`)
+Official logo artwork (transparent PNG): `logo.png` (horizontal), `logo-vertical.png`, `logo-icon.png`, `logo-icon-white.png`. Usage rules are in [`08-logo.md`](./design-system/08-logo.md). Never redraw the logo.
 
 ### Functional (`functional/`)
 | File | Contents |

@@ -146,7 +146,7 @@ Transient message host. White surface, `text/primary`, 1 px `#E5E7EB` border, 12
 
 ## TopBar
 Sticky white header, **56 px** tall, 1 px bottom hairline (`#E5E7EB`), capped at 512 px and centered.
-**Anatomy (leading → trailing):** optional back button (right-arrow, 44 px hit) → either a **logo** (image, ~36 px tall) *or* a **title** (16 px bold); on the trailing side, optional custom actions + optional **cart button** (cart icon, 44 px hit, with a blue count badge when items > 0).
+**Anatomy (leading → trailing):** optional back button (right-arrow, 44 px hit) → either the **logo** (`identity/logo.png`, horizontal lockup, 36 px tall, width auto ≈ 140 px — see [`08-logo.md`](./08-logo.md)) *or* a **title** (16 px bold); on the trailing side, optional custom actions + optional **cart button** (cart icon, 44 px hit, with a blue count badge when items > 0).
 **Props:** `title`, `showBack`, `showCart`, `showLogo`, `actions`.
 **Behavior:** back → navigate back; cart → go to `/cart`. Cart badge: blue circle, 16 px, white 10 px bold count, pinned to the leading-top corner (left in RTL).
 **Test ids:** `top-bar`, `back-button`, `cart-button`.

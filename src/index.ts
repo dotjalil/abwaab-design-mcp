@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { dirname, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { DOC_FILES, TOKENS_FILE, findComponent, findRoute, getStore, search, type Route, type Store } from "./docs.js";
+import { LOGOS, LOGO_VARIANTS, findLogo, readLogo } from "./identity.js";
 import { filterTokens, flattenTokens, lookupValue, toCss, toTailwind } from "./tokens.js";
 
 // Docs live next to the server (repo root). Override to serve a different checkout.
@@ -23,6 +24,7 @@ Ground rules:
 - The app is 100% RTL Arabic. Use logical properties (start/end), not left/right. Sole typeface: Dubai (weights 300/400/500/700 — no 600).
 - design-tokens.json is canonical: never invent colours, spacing, radii or shadows. Check any literal value with \`resolve_value\`.
 - All CTAs (incl. add-to-cart / pay / buy) are brand blue #0655CB. Green/red/amber are functional state signals only; yellow is for highlight/promo.
+- Logo: never draw, recreate or retype the Abwaab logo — call \`get_logo\` for the right file (colour variants on white/#F5F5F5, \`icon-white\` on brand blue). Never mirror it for RTL.
 - Where docs and the prototype disagree the docs win; the PRD wins for business rules. Call \`known_issues\` so you don't copy prototype bugs.
 
 Typical flow: \`get_route\` for the screen → it returns the route spec plus every component spec it's built from → \`get_tokens\` in the format your stack needs.`;
@@ -257,6 +259,36 @@ server.registerTool(
   },
 );
 
+// ---- identity -----------------------------------------------------------------
+
+const logoGuidance = (s: Store) => s.docs.get("logo")?.sections.find((x) => x.heading.startsWith("Which variant"))?.text ?? "";
+
+server.registerTool(
+  "get_logo",
+  {
+    title: "Get the Abwaab logo",
+    description:
+      "The official Abwaab logo files — never redraw the logo. Omit variant to list all variants with the rules for choosing one. With a variant: absolute file path, size, allowed background and a preview image; set embed=true to also get a data URI for inlining in standalone HTML/artifacts. Full rules: read_doc id='logo'.",
+    inputSchema: {
+      variant: z.enum(LOGO_VARIANTS).optional().describe("horizontal (default choice), vertical, icon, icon-white (for brand-blue surfaces)."),
+      embed: z.boolean().default(false).describe("Include a data:image/png;base64 URI."),
+    },
+    annotations: { readOnlyHint: true },
+  },
+  async ({ variant, embed }) => {
+    if (!variant) return text(`${logoGuidance(store())}\n\n## Variants\n${JSON.stringify(LOGOS.map((l) => ({ ...l, path: join(ROOT, l.file) })), null, 2)}`);
+    const logo = findLogo(variant)!;
+    let data: string;
+    try {
+      data = readLogo(ROOT, logo);
+    } catch {
+      return fail(`Logo file missing: ${join(ROOT, logo.file)}`);
+    }
+    const info = { ...logo, path: join(ROOT, logo.file), ...(embed && { dataUri: `data:image/png;base64,${data}` }) };
+    return { content: [{ type: "text" as const, text: JSON.stringify(info, null, 2) }, { type: "image" as const, data, mimeType: "image/png" }] };
+  },
+);
+
 // ---- resources ----------------------------------------------------------------
 
 for (const d of DOC_FILES) {
@@ -273,6 +305,15 @@ server.registerResource(
   { title: "Design tokens (DTCG JSON)", description: TOKENS_FILE, mimeType: "application/json" },
   async (uri) => ({ contents: [{ uri: uri.href, mimeType: "application/json", text: JSON.stringify(store().tokensRaw, null, 2) }] }),
 );
+
+for (const l of LOGOS) {
+  server.registerResource(
+    `logo-${l.id}`,
+    `abwaab-design://${l.file}`,
+    { title: `Logo — ${l.id}`, description: l.use, mimeType: "image/png" },
+    async (uri) => ({ contents: [{ uri: uri.href, mimeType: "image/png", blob: readLogo(ROOT, l) }] }),
+  );
+}
 
 // ---- prompts ------------------------------------------------------------------
 
@@ -295,6 +336,7 @@ server.registerPrompt(
       principles,
       rtl,
       r ? routeBundle(s, r, true) : `(No route matched '${route}'. Known: ${s.routes.map((x) => x.path).join(", ")})`,
+      ...(r && /logo/i.test(r.text) ? [`${logoGuidance(s)}\n\nGet the files with the \`get_logo\` tool; never redraw the logo.`] : []),
       "## Tokens\n```css\n" + tokens + "\n```",
       "Before finishing, call the `known_issues` tool and make sure none of those prototype issues were copied, then check any literal values with `resolve_value`.",
     ];

@@ -12,6 +12,7 @@ export const DOC_FILES: { id: string; file: string; title: string }[] = [
   { id: "iconography-motion", file: "design-system/05-iconography-motion.md", title: "Iconography & motion" },
   { id: "components", file: "design-system/06-components.md", title: "Components" },
   { id: "visual-patterns", file: "design-system/07-visual-patterns.md", title: "Visual patterns" },
+  { id: "logo", file: "design-system/08-logo.md", title: "Logo & identity" },
   { id: "brand-alignment", file: "brand-alignment.md", title: "Brand alignment — outstanding items" },
   { id: "architecture", file: "functional/00-architecture.md", title: "Route tree, layouts, state & data model" },
   { id: "flows", file: "functional/01-flows.md", title: "Key user flows" },

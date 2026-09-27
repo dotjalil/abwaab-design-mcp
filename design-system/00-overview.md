@@ -29,6 +29,7 @@ AbwaabPlus is an Arabic-first learning platform for Egyptian preparatory and sec
 | Typeface | **Dubai** (Arabic + Latin), weights 300 / 400 / 500 / 700 |
 | Brand — primary | **`#0655CB`** (blue) |
 | Brand — secondary | **`#FFCA00`** (yellow) |
+| Logo | Files in [`../identity/`](../identity/); variants and usage rules in [`08-logo.md`](./08-logo.md) |
 | Page surface | **`#F5F5F5`** (light gray) |
 | Card surface | **`#FFFFFF`** |
 | Primary text | **`#1F2937`** |

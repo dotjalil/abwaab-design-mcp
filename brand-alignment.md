@@ -30,7 +30,8 @@ The full three-bucket review has been actioned. This document now tracks **only 
 | Warning amber vs brand gold | ➖ Intentional — documented, value unchanged |
 | Cool-gray surface (`#EAEDEF`) | ➖ Intentional — keep (optional swap noted) |
 | Dubai font (vs DIN Next LT Arabic) | ➖ Intentional deviation |
-| Line of Journey · flat icon library · logo lockup rules | ⏸ Held — brand assets, deferred |
+| Logo assets + lockup/clear-space rules | ✅ Documented — `identity/` + `design-system/08-logo.md` (⚠ no white wordmark lockup) |
+| Line of Journey · flat icon library | ⏸ Held — brand assets, deferred |
 | Graphic devices · photography · stationary · social templates | ➖ Out of scope (brand-only, print/social) |
 
 ---
@@ -91,7 +92,7 @@ These are on-brand assets the app doesn't yet use. None conflict with the reconc
 
 - **Line of Journey** — the signature dashed "learning path" device (4 pt stroke, dash 40 / gap 40, white on blue/yellow). Conceptually ideal for a learning app (roadmaps, progress, onboarding).
 - **Flat multicolor icon & illustration library** — the brand's clean, round-edged, flat-colored icon set (with round drop-shadow) and line-art sub-topic icons (`#919191` stroke). Would replace the app's emoji covers + monochrome line icons. *(Overlaps with subject-system point #4.)*
-- **Logo lockup & clear-space rules** — primary/horizontal/icon lockups, clear space, minimum size (20 mm), misuse list. The app has a logo image but no documented digital lockup/clear-space rules.
+- **Logo — white lockups.** The logo files (horizontal, vertical, icon, white icon) are now in `identity/`, and digital lockup, clear-space, minimum-size and misuse rules are in `design-system/08-logo.md`. What is still missing is a **white (knockout) horizontal/vertical lockup**, so brand-blue surfaces can only use the white icon for now.
 
 ---
 

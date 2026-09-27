@@ -3,21 +3,22 @@
 Covers `/auth`, `/auth/otp`, `/auth/password`, `/auth/register`, and the root splash `/`.
 Flow overview: [`../01-flows.md` §1](../01-flows.md). Visual specs link into [`design-system/06-components.md`](../../design-system/06-components.md).
 
-**Shared visual context:** all auth screens sit on a **full-bleed brand-blue (`#0655CB`) background** with a centered white **Card** (~384 px max). The logo is rendered white (knockout). No TopBar/BottomNav. RTL; phone/OTP inputs forced LTR. Inner screens have an in-card back affordance (right-arrow + "رجوع").
+**Shared visual context:** all auth screens sit on a **full-bleed brand-blue (`#0655CB`) background** with a centered white **Card** (~384 px max). The logo is the white knockout icon `identity/logo-icon-white.png` at 64 px tall, above the card. ⚠ No white wordmark lockup exists, so use the icon alone and never filter the color lockup to white (see [`08-logo.md`](../../design-system/08-logo.md)). No TopBar/BottomNav. RTL; phone/OTP inputs forced LTR. Inner screens have an in-card back affordance (right-arrow + "رجوع").
 
 ---
 
 ## `/` — Splash / redirect gate
 
 **Purpose:** decide where to send the user on app open.
-**Behavior:** on mount, if authenticated → replace to `/home`, else → replace to `/auth`. Renders a centered splash while deciding.
+**Behavior:** on mount, if authenticated → replace to `/home`, else → replace to `/auth`. Renders a centered splash while deciding: the vertical logo `identity/logo-vertical.png` (120 px tall, width auto) above a muted loading line.
 
 ```
 ┌──────────────────────────────┐
 │         (#F5F5F5 page)       │
 │                              │
-│            📚                │  ← 48px book emoji
-│        أبواب بلس              │  ← 24px bold, brand blue
+│           ┌──────┐           │
+│           │ logo │           │  ← logo-vertical.png, 120px tall
+│           └──────┘           │
 │       جاري التحميل...         │  ← muted
 │                              │
 └──────────────────────────────┘
@@ -33,7 +34,7 @@ Flow overview: [`../01-flows.md` §1](../01-flows.md). Visual specs link into [`
 
 ```
 ┌──────────────────────────────┐  bg: brand blue
-│         [white logo]         │
+│      [white logo icon]       │  ← logo-icon-white.png, 64px
 │      منصتك التعليمية الأولى    │  ← tagline, white@70%
 │   ┌──────────────────────┐   │
 │   │  تسجيل الدخول          │   │  ← 18px bold (card)

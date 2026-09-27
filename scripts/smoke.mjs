@@ -18,6 +18,8 @@ const calls = [
   ["list_routes", {}],
   ["get_route", { path: "/courses/abc123" }],
   ["known_issues", {}],
+  ["get_logo", {}],
+  ["get_logo", { variant: "icon-white", embed: true }],
 ];
 
 let failed = 0;
